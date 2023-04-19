@@ -1,0 +1,10 @@
+site_name: pytest-patch
+site_description: An automagic `patch` fixture that can patch objects directly or by name.
+site_author: Igor Kaplounenko
+
+theme: readthedocs
+
+repo_url: https://github.com/megawidget/pytest-patch
+
+pages:
+- Home: index.md
