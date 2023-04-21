@@ -1,8 +1,15 @@
 #!/usr/bin/env python
 
-def _a(str_):
-  return str_ + '_a'
+from mock import sentinel
 
 
-def a(str_):
-  return _a(str_)
+def callee():
+  return sentinel.callee
+
+
+def caller():
+  return callee()
+
+
+def boolean():
+  return bool(5)

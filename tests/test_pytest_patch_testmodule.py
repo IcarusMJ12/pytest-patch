@@ -1,37 +1,43 @@
 #!/usr/bin/env python
 
 from pytest import fixture
-from mock import MagicMock
+from mock import MagicMock, sentinel
 
-from pytest_patch_testmodule import a, _a
-
-
-@fixture
-def a_obj(patch):
-  return patch(_a, MagicMock(return_value='obj'))
+from pytest_patch_testmodule import boolean, caller, callee
 
 
 @fixture
-def a_name(patch):
-  return patch('_a', MagicMock(return_value='name'))
+def callee_obj(patch):
+  return patch(callee, MagicMock(return_value=sentinel.obj))
 
 
 @fixture
-def a_full(patch):
-  return patch('pytest_patch_testmodule._a', MagicMock(return_value='full'))
+def callee_name(patch):
+  return patch('callee', MagicMock(return_value=sentinel.name))
 
 
-def test_a():
-  assert a('q') == 'q_a'
+@fixture
+def callee_full(patch):
+  return patch('pytest_patch_testmodule.callee',
+               MagicMock(return_value=sentinel.full))
 
 
-def test_a_obj(a_obj):
-  assert a('q') == 'obj'
+def test_callee():
+  assert callee() == sentinel.callee
 
 
-def test_a_name(a_name):
-  assert a('q') == 'name'
+def test_caller_obj(callee_obj):
+  assert caller() == sentinel.obj
 
 
-def test_a_full(a_full):
-  assert a('q') == 'full'
+def test_caller_name(callee_name):
+  assert caller() == sentinel.name
+
+
+def test_caller_full(callee_full):
+  assert caller() == sentinel.full
+
+
+def test_builtin(patch):
+  patch('bool').return_value = sentinel.bool
+  assert boolean() == sentinel.bool
