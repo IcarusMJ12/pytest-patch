@@ -15,6 +15,7 @@ setup(
     description='An automagic `patch` fixture that can patch '
                 'objects directly or by name.',
     long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     py_modules=['pytest_patch', 'pytest_patch_testmodule'],
     python_requires='>=3.5',
     install_requires=['pytest>=3.5.0', 'mock'],
