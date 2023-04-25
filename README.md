@@ -3,6 +3,8 @@
 An automagic replacement for `monkeypatch` or `unittest.mock.patch` that can be
 used on objects either directly or by name.
 
+![tests](https://github.com/megawidget/pytest-patch/actions/workflows/python-package.yml/badge.svg)
+
 ## Usage Examples
 
 ### patching objects directly
