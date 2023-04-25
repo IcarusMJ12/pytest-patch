@@ -3,6 +3,8 @@
 An automagic replacement for `monkeypatch` or `unittest.mock.patch` that can be
 used on objects either directly or by name.
 
+![tests](https://github.com/megawidget/pytest-patch/actions/workflows/python-package.yml/badge.svg)
+
 ## Usage Examples
 
 ### patching objects directly
@@ -10,17 +12,17 @@ used on objects either directly or by name.
 ```
 from pytest import fixture
 
-from mymodule import wat, ermelon
+from mymodule import callee, caller
 
 
 @fixture
-def wat_mock(patch):
-  return patch(wat)  # returns `MagicMock` by default
+def callee_mock(patch):
+  return patch(callee)  # returns `MagicMock` by default
 
 
-def test_ermelon(wat_mock):
-  ermelon()
-  assert wat_mock.called
+def test_caller(callee_mock):
+  caller()
+  assert callee_mock.called
 ```
 
 
@@ -29,12 +31,12 @@ def test_ermelon(wat_mock):
 ```
 from pytest import fixture
 
-from mymodule import ermelon
+from mymodule import caller
 
 
 @fixture
-def wat_mock(patch):
-  return patch('wat')  # assumes `wat` is in `mymodule`
+def callee_mock(patch):
+  return patch('callee')  # assumes `callee` is in `mymodule`
 ```
 
 
@@ -44,8 +46,8 @@ This behavior is similar to `unittest.mock.patch`.
 
 ```
 @fixture
-def wat_mock(patch):
-  return patch('mymodule.wat')
+def callee_mock(patch):
+  return patch('mymodule.callee')
 ```
 
 
@@ -63,8 +65,9 @@ mymodule/
     ...
   tests/
     */  # e.g. unit/
-      wat/
-        test_ermelon.py
+      mymodule/
+        wat/
+          test_ermelon.py
     ...
 ```
 
@@ -74,16 +77,17 @@ their corresponding subdirectories mirroring your module's path structure.
 
 If the above is not the case, e.g. you have a repository with a nonmatching
 module name or a monorepo with multiple modules, you may specify the
-corresponding flags either in the `pytest` command line or the ini file:
+corresponding flags either in the `pytest` command line or the ini file,
+glob-style:
 
 ```
-pytest --module-names=wat,ermelon --test-paths=tests.unit,tests.e2e
+pytest --module-names=mymodule,othermodule --test-paths=tests.unit,tests.e2e.*
 ```
 
 or (in `pytest.ini`)
 
 ```
 [pytest]
-module_names = wat ermelon
-test_paths = tests.unit tests.e2e
+module_names = mymodule othermodule
+test_paths = tests.unit tests.e2e.*
 ```
