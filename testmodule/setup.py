@@ -4,7 +4,7 @@ from setuptools import setup
 
 
 setup(
-    name='pytest-patch',
+    name='pytest-patch-testmodule',
     version='0.2.0',
     author='Igor Kaplounenko',
     author_email='megawidget@gmail.com',
@@ -12,13 +12,9 @@ setup(
     maintainer_email='megawidget@gmail.com',
     license='MIT',
     url='https://github.com/megawidget/pytest-patch',
-    description='An automagic `patch` fixture that can patch '
-                'objects directly or by name.',
-    long_description=open('README.md').read(),
-    long_description_content_type='text/markdown',
-    py_modules=['pytest_patch'],
+    description='Test module for pytest-patch',
+    py_modules=['pytest_patch_testmodule'],
     python_requires='>=3.7',
-    install_requires=['pytest>=7.0.0', 'mock'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Framework :: Pytest',
@@ -37,9 +33,4 @@ setup(
         'Operating System :: OS Independent',
         'License :: OSI Approved :: MIT License',
     ],
-    entry_points={
-        'pytest11': [
-            'patch = pytest_patch',
-        ],
-    },
 )

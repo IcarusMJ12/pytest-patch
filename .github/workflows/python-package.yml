@@ -27,14 +27,16 @@ jobs:
     - name: dependencies
       run: |
         python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
         python -m pip install flake8 mypy
-        python setup.py develop
+        python -m pip install testmodule/
+        python -m pip install .
     - name: flake8
       run: |
-        flake8 --ignore=E111,E114,W503 pytest_patch.py pytest_patch_testmodule.py setup.py tests
+        flake8 --ignore=E111,E114,W503 pytest_patch.py testmodule/pytest_patch_testmodule.py setup.py tests
     - name: pytest
       run: |
         pytest
     - name: mypy
       run: |
-        mypy --install-types --non-interactive pytest_patch.py pytest_patch_testmodule.py tests
+        mypy --install-types --non-interactive pytest_patch.py testmodule/pytest_patch_testmodule.py tests
