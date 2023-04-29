@@ -5,35 +5,31 @@ used on objects either directly or by name.
 
 ![tests](https://github.com/megawidget/pytest-patch/actions/workflows/python-package.yml/badge.svg)
 
-## Usage Examples
+## Usage
 
 ### patching objects directly
 
 ```
 from pytest import fixture
+from mock import MagicMock, sentinel
 
-from mymodule import callee, caller
+from mymodule import callee, caller  # `caller` returns `callee()`
 
 
 @fixture
 def callee_mock(patch):
-  return patch(callee)  # returns `MagicMock` by default
+  # returns the second argument if provided, `MagicMock()` otherwise
+  return patch(callee, MagicMock(return_value=sentinel.callee))
 
 
 def test_caller(callee_mock):
-  caller()
-  assert callee_mock.called
+  assert caller() == sentinel.callee
 ```
 
 
 ### patching objects by name
 
 ```
-from pytest import fixture
-
-from mymodule import caller
-
-
 @fixture
 def callee_mock(patch):
   return patch('callee')  # assumes `callee` is in `mymodule`
