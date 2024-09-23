@@ -5,13 +5,13 @@ from setuptools import setup
 
 setup(
     name='pytest-patch',
-    version='0.2.0',
+    version='0.2.1',
     author='Igor Kaplounenko',
-    author_email='megawidget@gmail.com',
+    author_email='icarus.aquinas.mj12@gmail.com',
     maintainer='Igor Kaplounenko',
-    maintainer_email='megawidget@gmail.com',
+    maintainer_email='icarus.aquinas.mj12@gmail.com',
     license='MIT',
-    url='https://github.com/megawidget/pytest-patch',
+    url='https://github.com/IcarusMJ12/pytest-patch',
     description='An automagic `patch` fixture that can patch '
                 'objects directly or by name.',
     long_description=open('README.md').read(),
